@@ -8,6 +8,7 @@ import { ClerkModule } from './clerk/clerk.module';
 import { CacheModule } from '@nestjs/cache-manager';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { EventEmitterModule } from '@nestjs/event-emitter';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
       ],
     }),
     ClerkModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],
