@@ -10,11 +10,9 @@ export default () => ({
   },
   clerk: {
     clerk_secret_key:
-      process.env.CLERK_SECRET_KEY ||
-      'sk_test_Oza1iq58j9JZMKZACzKyNMCNBvkdGCAIDQ8Nxq81wP',
+      process.env.CLERK_SECRET_KEY,
     clerk_publish_key:
-      process.env.CLERK_PUBLISHABLE_KEY ||
-      'pk_test_bW9yZS1wYW5kYS04LmNsZXJrLmFjY291bnRzLmRldiQ',
+      process.env.CLERK_PUBLISHABLE_KEY,
   },
   database: {},
 });
