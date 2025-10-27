@@ -1,10 +1,6 @@
-const _config = {
+export default () => ({
   server: {
     port: process.env.PORT ? parseInt(process.env.PORT, 10) : 3000,
-    rate_limit: {
-      window_ms: 15 * 60 * 1000, // 15 minutes
-      max_requests: 100,
-    },
     api_prefix: process.env.API_KEY_PREFIX || 'api/v1',
   },
   session: {
@@ -12,8 +8,13 @@ const _config = {
     resave: false,
     saveUninitialized: false,
   },
-  database: {
-  }
-}
-
-export const config = Object.freeze(_config);
+  clerk: {
+    clerk_secret_key:
+      process.env.CLERK_SECRET_KEY ||
+      'sk_test_Oza1iq58j9JZMKZACzKyNMCNBvkdGCAIDQ8Nxq81wP',
+    clerk_publish_key:
+      process.env.CLERK_PUBLISHABLE_KEY ||
+      'pk_test_bW9yZS1wYW5kYS04LmNsZXJrLmFjY291bnRzLmRldiQ',
+  },
+  database: {},
+});
