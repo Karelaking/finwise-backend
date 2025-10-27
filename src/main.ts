@@ -1,7 +1,10 @@
+import session from 'express-session';
 import { AppModule } from './app.module';
 import cookieParser from 'cookie-parser';
+import { config } from './config/config';
 import { NestFactory } from '@nestjs/core';
-import session from 'express-session';
+import { corsConfig } from './config/cors.config';
+import { consoleLoggerConfig } from './config/logger.config';
 import { ConsoleLogger, VersioningType } from '@nestjs/common';
 import { IncomingMessage, Server, ServerResponse } from 'http';
 import { NestExpressApplication } from '@nestjs/platform-express';
@@ -10,26 +13,22 @@ async function bootstrap(): Promise<void> {
   const app: NestExpressApplication<
     Server<typeof IncomingMessage, typeof ServerResponse>
     > = await NestFactory.create<NestExpressApplication>(AppModule, {
-      logger: new ConsoleLogger({
-        colors: true,
-        timestamp: true,
-        context: 'FinwiseApp',
-      })
+      logger: new ConsoleLogger(consoleLoggerConfig)
     });
-  app.enableCors();
+  app.enableCors(corsConfig);
   app.use(cookieParser());
   app.enableVersioning({
     type: VersioningType.URI,
-    prefix: 'api/v1',
+    prefix: config.server.api_prefix,
   });
   app.use(
     session({
-      secret: 'my-secret',
-      resave: false,
-      saveUninitialized: false,
+      resave: config.session.resave,
+      secret: config.session.secret,
+      saveUninitialized: config.session.saveUninitialized,
     }),
   );
-  await app.listen(process.env.PORT ?? 3000);
+  await app.listen(config.server.port ?? 3000);
 }
 
 bootstrap().catch((err) => {

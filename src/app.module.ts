@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { config } from './config/config';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
@@ -10,11 +11,16 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
   imports: [
     CacheModule.register(),
     ScheduleModule.forRoot({}),
-    ThrottlerModule.forRoot({
-      throttlers: [{ ttl: 60, limit: 100 }],
-    }),
     ConfigModule.forRoot({ isGlobal: true }),
     EventEmitterModule.forRoot({ global: true }),
+    ThrottlerModule.forRoot({
+      throttlers: [
+        {
+          ttl: config.server.rate_limit.window_ms,
+          limit: config.server.rate_limit.max_requests,
+        },
+      ],
+    }),
   ],
   controllers: [AppController],
   providers: [AppService],
