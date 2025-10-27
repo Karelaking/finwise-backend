@@ -5,7 +5,7 @@ const _config = {
       window_ms: 15 * 60 * 1000, // 15 minutes
       max_requests: 100,
     },
-    api_prefix: process.env.API_KEY_PREFIX || 'api',
+    api_prefix: process.env.API_KEY_PREFIX || 'api/v1',
   },
   session: {
     secret: process.env.SESSION_SECRET || 'default_session_secret',

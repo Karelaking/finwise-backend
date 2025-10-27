@@ -4,15 +4,11 @@ import cookieParser from 'cookie-parser';
 import { config } from './config/config';
 import { NestFactory } from '@nestjs/core';
 import { corsConfig } from './config/cors.config';
-import { consoleLoggerConfig } from './config/logger.config';
+import  consoleLoggerConfig  from './config/logger.config';
 import { ConsoleLogger, VersioningType } from '@nestjs/common';
-import { IncomingMessage, Server, ServerResponse } from 'http';
-import { NestExpressApplication } from '@nestjs/platform-express';
 
 async function bootstrap(): Promise<void> {
-  const app: NestExpressApplication<
-    Server<typeof IncomingMessage, typeof ServerResponse>
-    > = await NestFactory.create<NestExpressApplication>(AppModule, {
+  const app = await NestFactory.create(AppModule, {
       logger: new ConsoleLogger(consoleLoggerConfig)
     });
   app.enableCors(corsConfig);

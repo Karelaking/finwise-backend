@@ -1,9 +1,10 @@
 import { ConsoleLoggerOptions } from '@nestjs/common';
 
-const _consoleLoggerConfig: ConsoleLoggerOptions = {
+const consoleLoggerConfig: ConsoleLoggerOptions = {
   colors: true,
   timestamp: true,
   context: 'FinwiseApp',
+  logLevels: ['log', 'warn', 'error', 'debug'],
 };
 
-export const consoleLoggerConfig = Object.freeze(_consoleLoggerConfig);
+export default consoleLoggerConfig;
