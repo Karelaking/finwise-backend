@@ -14,5 +14,6 @@ export default () => ({
     clerk_publish_key:
       process.env.CLERK_PUBLISHABLE_KEY,
   },
+  resend_api_key: process.env.RESEND_API_KEY,
   database: {},
 });

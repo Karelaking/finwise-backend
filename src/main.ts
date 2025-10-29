@@ -7,7 +7,8 @@ import { corsConfig } from './config/cors.config';
 import  consoleLoggerConfig  from './config/logger.config';
 import { ConsoleLogger, VersioningType } from '@nestjs/common';
 
- const configService = new ConfigService()
+
+const configService = new ConfigService()
 
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule, {
@@ -19,15 +20,6 @@ async function bootstrap(): Promise<void> {
     type: VersioningType.URI,
     prefix: configService.get<string>('server.api_prefix'),
   });
-  // app.use(
-  //   session({
-  //     resave: configService.get<boolean>('session.resave'),
-  //     secret: configService.get<CipherKey | CipherKey[]>('session.secret'),
-  //     saveUninitialized: configService.get<boolean>(
-  //       'session.saveUninitialized',
-  //     ),
-  //   }),
-  // );
   app.use(clerkMiddleware());
   await app.listen(configService.get<number>('server.port') ?? 3000);
 }
